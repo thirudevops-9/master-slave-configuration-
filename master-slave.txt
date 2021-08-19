@@ -1,0 +1,77 @@
+How to configure Master slave in jenkins : 
+
+bring to linux ec2 machine : 
+
+first ec2-instace we have install java and jenkins along with this 
+to run jenkins and login jenkins GUI page 
+
+2 ec2-instance we have install java 
+
+
+step 1 : login jenkins GUI page 
+	create a new job 
+	frestyle 
+	save 
+step2 : go to web page and search below link 
+	 https://github.com/devopstrainingblr/Maven-Web-Project
+		clone the https code 
+	(https://github.com/devopstrainingblr/Maven-Web-Project.git)
+
+ste3 : configure 
+	git : https://github.com/devopstrainingblr/Maven-Web-Project.git
+	build : invoke top -level Maven targets
+	maven version : maven
+	goals : clean package
+	apply and save 
+	(buiid sucess )	
+step4 : login to slave machine and here 
+	create a empty directory and take the path 
+	mkdir slave
+	cd salve 
+	pwd 
+	copy the path
+	and aslo 
+	copy the which user 
+	whoami 
+	pwd 
+	copy the path
+along with this copy the pem file private key 
+	login gitbash 
+	cd downloads 
+	cat ohio.pem
+	copy the keys 
+	
+	
+step5 : creat a new node for the salve 
+	manage jenkins 
+	manage node and clouds 
+	new node 
+	node name : job-slave
+	permanet Agent (select)==> ok 
+	Description : slave1
+	Remote directory : here add the slave directory path 
+	 			(/home/ec2-user/slave) (step4)
+	lables : salves 
+	launch method : launch agent via ssh 
+	credentials : add ==>jenkins ==>
+			kind = SSH username with private key 
+			description : jenkins-slave
+			username = ec2-user 
+			private key ==>add==>here copy the 
+				pemfile private key (step4)==> add
+	none : jenkins-slave
+	host key verification strategy : manually trusted key verification strategy
+	save
+
+step6 : 
+	go to job and cofigure 
+	Restrict where this project can be run (select)
+	leble-expression : job-slave (here give the node name)
+	save 
+	build now 
+	
+
+	now your job is running into slave machine 
+
+
+								
